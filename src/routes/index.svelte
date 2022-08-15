@@ -85,6 +85,7 @@
 
 	/* This container is needed to position the front and back side */
 	.flip-box-inner {
+		-webkit-transition: transform 0.5s;
 		transition: transform 0.5s;
 		transform-style: preserve-3d;
 	}

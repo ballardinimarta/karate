@@ -90,6 +90,7 @@
 		-webkit-transition: transform 0.5s;
 		-webkit-transition: -webkit-transform 0.5s;
 		transform-style: preserve-3d;
+		-webkit-transform-style: preserve-3d;
 	}
 
 	/* Do an horizontal flip on button click */

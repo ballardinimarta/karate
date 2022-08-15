@@ -85,13 +85,15 @@
 
 	/* This container is needed to position the front and back side */
 	.flip-box-inner {
-		-webkit-transition: transform 0.5s;
 		transition: transform 0.5s;
+		-webkit-transition: transform 0.5s;
+		-webkit-transition: -webkit-transform 0.5s;
 		transform-style: preserve-3d;
 	}
 
 	/* Do an horizontal flip on button click */
 	.flip-it {
+		-webkit-transform: rotateY(180deg);
 		transform: rotateY(180deg);
 	}
 	h1 {
@@ -145,6 +147,7 @@
 	}
 
 	.flip-box-back {
+		-webkit-transform: rotateY(180deg);
 		transform: rotateY(180deg);
 		height: 90%;
 		width: 90%;

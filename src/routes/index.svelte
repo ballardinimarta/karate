@@ -106,7 +106,6 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		background-color: white;
 		aspect-ratio: 57 / 89;
 		width: 90%;
 		border-radius: 15px;

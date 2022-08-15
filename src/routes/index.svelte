@@ -80,6 +80,7 @@
 	}
 	.flip-box {
 		background-color: transparent;
+		-webkit-perspective: 1000px;
 		perspective: 1000px; /* Remove this if you don't want the 3D effect */
 	}
 

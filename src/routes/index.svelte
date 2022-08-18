@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	let randomNumber = 0;
+	let number = 0;
 	function shuffle(array: any[]) {
 		let currentIndex = array.length,
 			randomIndex;
@@ -21,18 +21,28 @@
 
 	const endpoint = `https://api.storyblok.com/v2/cdn/stories?cv=${Date.now()}&token=${
 		import.meta.env.VITE_ACCESS_TOKEN
-	}&version=published&starts_with=cards`;
+	}&version=published&starts_with=cards&per_page=100`;
 
 	onMount(async function () {
 		const response = await fetch(endpoint);
 		const data = await response.json();
 		cards = data.stories;
 		cards = shuffle(cards);
+		cards.push({
+			content: {
+				title: 'SLUT',
+				description: 'Nu är spelet slut, refresha sidan om ni vill spela igen!',
+				image: {
+					filename: ''
+				}
+			}
+		});
 	});
 
 	let flipped = false;
 	function handleClick() {
 		flipped = !flipped;
+		console.log(cards);
 	}
 </script>
 
@@ -40,17 +50,26 @@
 <div class="card-container flip-box">
 	<div class="card-bg flip-box-inner" class:flip-it={flipped}>
 		{#if cards.length > 0}
-			<img
-				class="card flip-box-front"
-				src={cards[randomNumber].content.image.filename}
-				alt="kort"
-				on:click={handleClick}
-			/>
+			{#if cards[number].content.image.filename === ''}
+				<div
+					class="card flip-box-front no-image"
+					src={cards[number].content.image.filename}
+					alt="kort"
+					on:click={handleClick}
+				>
+					<p>{cards[number].content.title}</p>
+				</div>
+			{:else}<img
+					class="card flip-box-front"
+					src={cards[number].content.image.filename}
+					alt="kort"
+					on:click={handleClick}
+				/>{/if}
 
 			<div class:conceal-answer={flipped} class="flip-box-back" on:click={handleClick}>
 				<div class="card-description">
-					<h3>{cards[randomNumber].content.title}</h3>
-					<p>{cards[randomNumber].content.description}</p>
+					<h3>{cards[number].content.title}</h3>
+					<p>{cards[number].content.description}</p>
 				</div>
 			</div>
 		{/if}
@@ -60,7 +79,7 @@
 	<button
 		class="next-button"
 		on:click={() => {
-			randomNumber = Math.floor(Math.random() * cards.length);
+			number = number + 1;
 			flipped = false;
 		}}>nästa kort</button
 	>
@@ -74,6 +93,8 @@
 />
 
 <style lang="css">
+	@import url('https://use.typekit.net/bqr3kzy.css');
+
 	:global(body) {
 		height: 100vh;
 		background: linear-gradient(45deg, rgba(121, 150, 233, 1) 0%, rgb(176, 160, 237) 100%);
@@ -83,7 +104,24 @@
 		-webkit-perspective: 1000px;
 		perspective: 1000px; /* Remove this if you don't want the 3D effect */
 	}
-
+	.card.no-image {
+		background-color: black;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		aspect-ratio: 57 / 89;
+		width: 90%;
+	}
+	.card.no-image > p {
+		font-family: gurkner-jump, sans-serif;
+		font-weight: 400;
+		font-style: normal;
+		font-size: 15vw;
+		text-align: center;
+		padding: 0px 10px;
+		color: white;
+		text-shadow: 2px 3px rgb(96, 120, 186);
+	}
 	/* This container is needed to position the front and back side */
 	.flip-box-inner {
 		transition: transform 0.5s;
@@ -100,6 +138,7 @@
 	}
 	h1 {
 		text-align: center;
+		margin-bottom: 10px;
 		font-family: 'Silkscreen', cursive;
 	}
 	.card-container {
@@ -153,7 +192,14 @@
 		transform: rotateY(180deg);
 		height: 90%;
 		width: 90%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
 		background-color: rgb(255, 187, 220);
+	}
+	.card-description {
+		padding: 0px 10px;
 	}
 	.button-container {
 		margin-top: 20px;

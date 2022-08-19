@@ -154,7 +154,6 @@
 		width: 90%;
 		border-radius: 15px;
 		box-shadow: -3px 3px 15px #00000048;
-		background-color: white;
 	}
 	.card-description {
 		text-align: center;
@@ -198,7 +197,6 @@
 		justify-content: center;
 		align-items: center;
 		background-color: rgb(255, 187, 220);
-		z-index: 10;
 	}
 	.card-description {
 		padding: 0px 10px;

@@ -155,6 +155,7 @@
 		border-radius: 15px;
 		background-color: white;
 		box-shadow: -3px 3px 15px #00000048;
+		background-color: white;
 	}
 	.card-description {
 		text-align: center;

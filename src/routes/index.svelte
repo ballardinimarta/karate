@@ -198,6 +198,7 @@
 		justify-content: center;
 		align-items: center;
 		background-color: rgb(255, 187, 220);
+		z-index: 10;
 	}
 	.card-description {
 		padding: 0px 10px;
